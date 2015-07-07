@@ -4,7 +4,7 @@
         	<meta charset="utf-8">
         	<title> ScatterPlot w/ text</title>
 
-        	<script type = "text/javascript" src = "/Interactive_DataVisualizations/d3/d3.js"></script>
+        	<script type = "text/javascript" src = "/d3/d3.js"></script>
 		<style type = "text/css">
 			
 			/* No style rules yet */
@@ -17,7 +17,7 @@
 			//Width and height
 			var w = 500;
 			var h = 100;
-			var barPadding = 1; // <-- New!
+			var padding = 20;
 
 			//Data
 			var dataset = [
@@ -25,6 +25,16 @@
 					[410, 12], [475, 44], [25, 67], [85, 21], [220, 88]
 				];
 
+			//Create scale functions
+			var xScale = d3.scale.linear()
+				.domain([0, d3.max(dataset, function(d) {
+					return d[0]; })])
+				.range([padding, w - padding * 2]);
+			var yScale = d3.scale.linear()
+				.domain([0, d3.max(dataset, function(d) {
+					return d[1]; })])
+				.range([h - padding, padding]);
+			
 			//Create SVG element
 			var svg = d3.select("body")
 				.append("svg")
